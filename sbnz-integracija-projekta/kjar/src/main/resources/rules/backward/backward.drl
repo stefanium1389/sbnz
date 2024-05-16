@@ -1,0 +1,17 @@
+package backward;
+
+import com.ftn.sbnz.model.models.Oblak
+
+query isContainedIn( String x, String y )
+  Oblak( x, y; )
+  or
+  ( Oblak( z, y; ) and isContainedIn( x, z; ) )
+end
+
+rule "go5"
+when
+    String( this == "go5" )
+    isContainedIn(thing, "stratiformis"; )
+then
+    System.out.println( "Oblak " + thing + " je stratiformis" );
+end
