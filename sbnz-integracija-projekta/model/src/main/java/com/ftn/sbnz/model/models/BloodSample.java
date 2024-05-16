@@ -157,8 +157,6 @@ public class BloodSample {
         this.syphilisPositive = syphilisPositive;
     }
 
-    
-
     @Override
     public boolean equals(Object obj) {
         BloodSample other = (BloodSample) obj;

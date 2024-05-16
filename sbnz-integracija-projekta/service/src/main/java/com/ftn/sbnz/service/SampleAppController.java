@@ -26,13 +26,5 @@ public class SampleAppController {
 		log.info("\nzavrsen backward-------------------------------------------------------------------------------------------\n");
 
 	}
-	@RequestMapping(value = "/cep", method = RequestMethod.GET, produces = "application/json")
-	public void xd() {
-		log.info("\npokrenut cep\n");
-		sampleService.sharks();
-		log.info("\nzavrsen cep-------------------------------------------------------------------------------------------\n");
-
-	}
-	
 	
 }
