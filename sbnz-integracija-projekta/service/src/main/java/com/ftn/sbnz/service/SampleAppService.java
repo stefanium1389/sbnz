@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ftn.sbnz.model.events.SharkEvent;
-import com.ftn.sbnz.model.models.Oblak;
+import com.ftn.sbnz.model.models.BloodSample;
 
 
 @Service
@@ -30,26 +30,7 @@ public class SampleAppService {
 	public void findStratiformis(){
 		KieSession kSession = kieContainer.newKieSession("bwKsession");
 
-		kSession.insert(new Oblak("Cirrus", "Oblak"));
-
-		kSession.insert(new Oblak("fibratus", "Cirrus"));
-		kSession.insert(new Oblak("introtus", "fibratus"));
-		kSession.insert(new Oblak("radiatus", "fibratus"));
-		kSession.insert(new Oblak("uncinus", "Cirrus"));
-		kSession.insert(new Oblak("vertebratus", "uncinus"));
-
-		kSession.insert(new Oblak("spissatus", "Cirrus"));
-		kSession.insert(new Oblak("duplicatus", "spissatus"));
-
-		kSession.insert(new Oblak("Altocumulus", "Oblak"));
-		kSession.insert(new Oblak("stratiformis", "Altocumulus"));
-		kSession.insert(new Oblak("translucidus", "stratiformis"));
-		kSession.insert(new Oblak("lenticularis", "Altocumulus"));
-		kSession.insert(new Oblak("duplicatus", "lenticularis"));
-		kSession.insert(new Oblak("castellanus", "Altocumulus"));
-		kSession.insert(new Oblak("undulatus", "castellanus"));
-
-		kSession.insert(new Oblak("Nimbostratus", "Oblak"));
+		kSession.insert(new BloodSample());
 
 		kSession.insert( "go5" );
     	kSession.fireAllRules();
