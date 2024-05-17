@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ftn.sbnz.model.models.BloodSample;
+import com.ftn.sbnz.model.models.BloodType;
+import com.ftn.sbnz.model.models.RhPhenotype;
 
 
 @Service
@@ -26,7 +28,7 @@ public class SampleAppService {
 	public void findStratiformis(){
 		KieSession kSession = kieContainer.newKieSession("bwKsession");
 
-		kSession.insert(new BloodSample());
+		kSession.insert(new BloodSample(1, BloodType.A, true, RhPhenotype.Dce, true, true, false, true, true, false, false, false));
 
 		kSession.insert( "go5" );
     	kSession.fireAllRules();

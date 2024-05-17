@@ -1,0 +1,31 @@
+package forward
+
+import com.ftn.sbnz.model.models.BloodSample
+
+rule "HIV Positive"
+    when
+        $sample : BloodSample($sample.hivPositive == true)
+    then
+        System.out.println("Sample ID " + $sample.getId() + " is HIV positive.");
+end
+
+rule "Hepatitis B Positive"
+    when
+        $sample : BloodSample($sample.hepatitisBPositive == true)
+    then
+        System.out.println("Sample ID " + $sample.getId() + " is Hepatitis B positive.");
+end
+
+rule "RhD Positive"
+    when
+        $sample : BloodSample($sample.RhD == true)
+    then
+        System.out.println("Sample ID " + $sample.getId() + " is RhD positive and has Rh Phenotype: " + $sample.getRhPhenotype());
+end
+
+rule "RhD Negative"
+    when
+        $sample : BloodSample($sample.RhD == false)
+    then
+        System.out.println("Sample ID " + $sample.getId() + " is RhD negative");
+end

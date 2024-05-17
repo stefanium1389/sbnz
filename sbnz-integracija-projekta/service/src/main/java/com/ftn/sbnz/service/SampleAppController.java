@@ -19,11 +19,11 @@ public class SampleAppController {
 		this.sampleService = sampleService;
 	}
 
-	@RequestMapping(value = "/backward", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "/forward", method = RequestMethod.GET, produces = "application/json")
 	public void getQuestions() {
-		log.info("\npokrenut backward\n");
+		log.info("\npokrenut forward\n");
 		sampleService.findStratiformis();
-		log.info("\nzavrsen backward-------------------------------------------------------------------------------------------\n");
+		log.info("\nzavrsen forward-------------------------------------------------------------------------------------------\n");
 
 	}
 	
