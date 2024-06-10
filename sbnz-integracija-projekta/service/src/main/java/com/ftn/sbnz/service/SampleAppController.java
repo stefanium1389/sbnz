@@ -27,14 +27,18 @@ public class SampleAppController {
 	public void getQuestions() {
 		log.info("\npokrenut forward\n");
 		BloodSample sample = new BloodSample(
-			1, BloodType.A, true, 
-			RhPhenotype.Dce, true, 
+			1, 
+			1, 
+			BloodType.A, 
+			true, 
+			RhPhenotype.Dce, 
+			true, 
 			true, 
 			false, 
 			true, 
+			false, 
+			false, 
 			true, 
-			false, 
-			false, 
 			false);
 		sampleService.checkBloodSample(sample);
 		log.info("\nzavrsen forward-------------------------------------------------------------------------------------------\n");

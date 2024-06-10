@@ -7,9 +7,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ftn.sbnz.model.dto.BloodSampleDto;
+import com.ftn.sbnz.model.models.BloodDonor;
 import com.ftn.sbnz.model.models.BloodSample;
-import com.ftn.sbnz.model.models.BloodType;
-import com.ftn.sbnz.model.models.RhPhenotype;
 
 
 @Service
@@ -27,7 +27,17 @@ public class SampleAppService {
 
 	public void checkBloodSample(BloodSample bloodSample){
 		KieSession kSession = kieContainer.newKieSession("fwKsession");
+		BloodSampleDto dto = new BloodSampleDto();
+		dto.setDonorId(1);
+		dto.setId(bloodSample.getId());
 		kSession.insert(bloodSample);
+		kSession.insert(new BloodDonor(
+		1,
+		0,
+		true,
+		null,
+		null
+		));
     	kSession.fireAllRules();
 	}
 

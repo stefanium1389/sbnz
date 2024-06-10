@@ -1,8 +1,11 @@
 package com.ftn.sbnz.model.models;
 
+import java.util.Random;
+
 public class BloodSample {
 
     private int id;
+    private int donorId;
     private BloodType bloodType;
     private boolean RhD;
     private RhPhenotype rhPhenotype;
@@ -10,18 +13,21 @@ public class BloodSample {
     private boolean irregularEritrociteAntibodiesPresent;
     private boolean irregularEritrociteAntibodiesSpecific;
     private boolean useEritrocitesOnly;
+    private boolean additionalTesting;
+    private boolean additionalTestingDone;
     private boolean hivPositive;
     private boolean hepatitisBPositive;
     private boolean hepatitisCPositive;
     private boolean syphilisPositive;
 
-    public BloodSample(int id, BloodType bloodType, boolean rhD, RhPhenotype rhPhenotype, boolean irregularEritrociteAntibodies,
-            boolean irregularEritrociteAntibodiesPresent, boolean irregularEritrociteAntibodiesSpecific,
-            boolean useEritrocitesOnly, boolean hivPositive, boolean hepatitisBPositive, boolean hepatitisCPositive,
-            boolean syphilisPositive) {
+    public BloodSample(int id, int donorId, BloodType bloodType, boolean rhD, RhPhenotype rhPhenotype,
+            boolean irregularEritrociteAntibodies, boolean irregularEritrociteAntibodiesPresent,
+            boolean irregularEritrociteAntibodiesSpecific, boolean useEritrocitesOnly, boolean hivPositive,
+            boolean hepatitisBPositive, boolean hepatitisCPositive, boolean syphilisPositive) {
         this.id = id;
+        this.donorId = donorId;
         this.bloodType = bloodType;
-        this.RhD = rhD;
+        RhD = rhD;
         this.rhPhenotype = rhPhenotype;
         this.irregularEritrociteAntibodies = irregularEritrociteAntibodies;
         this.irregularEritrociteAntibodiesPresent = irregularEritrociteAntibodiesPresent;
@@ -31,6 +37,8 @@ public class BloodSample {
         this.hepatitisBPositive = hepatitisBPositive;
         this.hepatitisCPositive = hepatitisCPositive;
         this.syphilisPositive = syphilisPositive;
+        this.additionalTesting = false;
+        this.additionalTestingDone = false;
     }
 
     public BloodSample() {
@@ -130,7 +138,7 @@ public class BloodSample {
 
     public void setSyphilisPositive(boolean syphilisPositive) {
         this.syphilisPositive = syphilisPositive;
-    }
+    } 
 
     @Override
     public boolean equals(Object obj) {
@@ -154,5 +162,56 @@ public class BloodSample {
                 + ", hepatitisBPositive=" + hepatitisBPositive + ", hepatitisCPositive=" + hepatitisCPositive
                 + ", syphilisPositive=" + syphilisPositive + "]";
     }
-    
-}
+
+    public int getDonorId() {
+        return donorId;
+    }
+
+    public void setDonorId(int donorId) {
+        this.donorId = donorId;
+    }
+
+    public boolean isAdditionalTesting() {
+        return additionalTesting;
+    }
+
+    public void setAdditionalTesting(boolean additionalTesting) {
+        this.additionalTesting = additionalTesting;
+    }
+
+    public boolean isAdditionalTestingDone() {
+        return additionalTestingDone;
+    }
+
+    public void setAdditionalTestingDone(boolean additionalTestingDone) {
+        this.additionalTestingDone = additionalTestingDone;
+    }
+    public void redoHepatitisCTest(){
+        Random r = new Random();
+        double x = r.nextDouble();
+        if(x<=0.1){
+            this.hepatitisCPositive = !this.hepatitisCPositive;
+        }
+    }
+    public void redoHepatitisBTest(){
+        Random r = new Random();
+        double x = r.nextDouble();
+        if(x<=0.1){
+            this.hepatitisBPositive = !this.hepatitisBPositive;
+        }
+    }
+    public void redoHIVTest(){
+        Random r = new Random();
+        double x = r.nextDouble();
+        if(x<=0.1){
+            this.hivPositive = !this.hivPositive;
+        }
+    }
+    public void redoSyphilisTest(){
+        Random r = new Random();
+        double x = r.nextDouble();
+        if(x<=0.1){
+            this.syphilisPositive = !this.syphilisPositive;
+        }
+    }
+}   
