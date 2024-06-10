@@ -181,3 +181,41 @@ rule "Ban donor with Syphilis"
         System.out.println("Banned donor ID " + $donor.getId() + " forever");
 end
 
+rule "Check for irregular eritrocite antibodies: unidentified"
+    no-loop
+    when
+        $sample : BloodSample($sample.isIrregularEritrociteAntibodies() == true, $sample.isIrregularEritrociteAntibodiesIdentified() == false)
+        $dto: BloodSampleDto($sample.getId() == $dto.getId())
+    then
+        $sample.setUseEritrocitesOnly(true);
+        $dto.setUseEritrocitesOnly(true);
+        update($sample);
+        update($dto);
+        System.out.println("Sample ID "+$sample.getId()+" Irregular eritrocite antibodies present but not identified, use eritrocites only");
+end
+
+rule "Check for irregular eritrocite antibodies: non-specific"
+    no-loop
+    when
+        $sample : BloodSample($sample.isIrregularEritrociteAntibodies() == true, $sample.isIrregularEritrociteAntibodiesIdentified() == true, $sample.isIrregularEritrociteAntibodiesSpecific() == false)
+        $dto: BloodSampleDto($sample.getId() == $dto.getId())
+    then
+        $sample.setUseEritrocitesOnly(true);
+        $dto.setUseEritrocitesOnly(true);
+        update($sample);
+        update($dto);
+        System.out.println("Sample ID "+$sample.getId()+" Irregular eritrocite antibodies present but not specified, use ertirocites only");
+end
+
+rule "Check for irregular eritrocite antibodies: specific"
+    no-loop
+    when
+        $sample : BloodSample($sample.isIrregularEritrociteAntibodies() == true, $sample.isIrregularEritrociteAntibodiesIdentified() == true, $sample.isIrregularEritrociteAntibodiesSpecific() == true)
+        $donor : BloodDonor($sample.getDonorId() == $donor.getId())
+    then
+        $donor.setCanDonate(false);
+        $donor.setBannedUntil(LocalDateTime.now().plus(150, ChronoUnit.YEARS));
+        update($donor);
+        System.out.println("Irregular eritrocite antibodies present and specified, ban forever user ID "+$donor.getId());
+end
+

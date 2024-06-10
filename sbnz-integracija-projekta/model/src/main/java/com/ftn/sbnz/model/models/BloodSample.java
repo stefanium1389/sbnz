@@ -10,7 +10,7 @@ public class BloodSample {
     private boolean RhD;
     private RhPhenotype rhPhenotype;
     private boolean irregularEritrociteAntibodies;
-    private boolean irregularEritrociteAntibodiesPresent;
+    private boolean irregularEritrociteAntibodiesIdentified;
     private boolean irregularEritrociteAntibodiesSpecific;
     private boolean useEritrocitesOnly;
     private boolean additionalTesting;
@@ -21,16 +21,16 @@ public class BloodSample {
     private boolean syphilisPositive;
 
     public BloodSample(int id, int donorId, BloodType bloodType, boolean rhD, RhPhenotype rhPhenotype,
-            boolean irregularEritrociteAntibodies, boolean irregularEritrociteAntibodiesPresent,
+            boolean irregularEritrociteAntibodies, boolean irregularEritrociteAntibodiesIdentified,
             boolean irregularEritrociteAntibodiesSpecific, boolean useEritrocitesOnly, boolean hivPositive,
             boolean hepatitisBPositive, boolean hepatitisCPositive, boolean syphilisPositive) {
         this.id = id;
         this.donorId = donorId;
         this.bloodType = bloodType;
-        RhD = rhD;
+        this.RhD = rhD;
         this.rhPhenotype = rhPhenotype;
         this.irregularEritrociteAntibodies = irregularEritrociteAntibodies;
-        this.irregularEritrociteAntibodiesPresent = irregularEritrociteAntibodiesPresent;
+        this.irregularEritrociteAntibodiesIdentified = irregularEritrociteAntibodiesIdentified;
         this.irregularEritrociteAntibodiesSpecific = irregularEritrociteAntibodiesSpecific;
         this.useEritrocitesOnly = useEritrocitesOnly;
         this.hivPositive = hivPositive;
@@ -84,12 +84,12 @@ public class BloodSample {
         this.irregularEritrociteAntibodies = irregularEritrociteAntibodies;
     }
 
-    public boolean isIrregularEritrociteAntibodiesPresent() {
-        return irregularEritrociteAntibodiesPresent;
+    public boolean isIrregularEritrociteAntibodiesIdentified() {
+        return irregularEritrociteAntibodiesIdentified;
     }
 
-    public void setIrregularEritrociteAntibodiesPresent(boolean irregularEritrociteAntibodiesPresent) {
-        this.irregularEritrociteAntibodiesPresent = irregularEritrociteAntibodiesPresent;
+    public void setIrregularEritrociteAntibodiesIdentified(boolean irregularEritrociteAntibodiesIdentified) {
+        this.irregularEritrociteAntibodiesIdentified = irregularEritrociteAntibodiesIdentified;
     }
 
     public boolean isIrregularEritrociteAntibodiesSpecific() {
@@ -156,7 +156,7 @@ public class BloodSample {
     public String toString() {
         return "BloodSample [id=" + id + ", bloodType=" + bloodType + ", RhD=" + RhD + ", rhPhenotype=" + rhPhenotype
                 + ", irregularEritrociteAntibodies=" + irregularEritrociteAntibodies
-                + ", irregularEritrociteAntibodiesPresent=" + irregularEritrociteAntibodiesPresent
+                + ", irregularEritrociteAntibodiesPresent=" + irregularEritrociteAntibodiesIdentified
                 + ", irregularEritrociteAntibodiesSpecific=" + irregularEritrociteAntibodiesSpecific
                 + ", useEritrocitesOnly=" + useEritrocitesOnly + ", hivPositive=" + hivPositive
                 + ", hepatitisBPositive=" + hepatitisBPositive + ", hepatitisCPositive=" + hepatitisCPositive

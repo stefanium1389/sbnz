@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ftn.sbnz.model.dto.BloodSampleDto;
+import com.ftn.sbnz.model.models.BloodDonor;
 import com.ftn.sbnz.model.models.BloodSample;
 import com.ftn.sbnz.model.models.BloodType;
 import com.ftn.sbnz.model.models.RhPhenotype;
@@ -28,7 +29,7 @@ public class SampleAppController {
 
 	@RequestMapping(value = "/forward", method = RequestMethod.GET, produces = "application/json")
 	public ResponseEntity<?> getQuestions() {
-		log.info("\npokrenut forward\n");
+		log.info("\npokrenut forward------------------------------------------------------------------------------\n");
 		BloodSample sample = new BloodSample(
 			1, 
 			1, 
@@ -43,7 +44,13 @@ public class SampleAppController {
 			false, 
 			false, 
 			false);
-		BloodSampleDto dto = sampleService.checkBloodSample(sample);
+		BloodDonor donor = new BloodDonor(
+			1,
+			0,
+			true,
+			null,
+			null);
+		BloodSampleDto dto = sampleService.checkBloodSample(sample, donor);
 		log.info("\nzavrsen forward-------------------------------------------------------------------------------------------\n");
 		return new ResponseEntity<BloodSampleDto>(dto, HttpStatus.OK);
 
