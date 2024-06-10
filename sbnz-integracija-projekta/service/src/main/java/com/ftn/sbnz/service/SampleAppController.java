@@ -7,6 +7,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ftn.sbnz.model.models.BloodSample;
+import com.ftn.sbnz.model.models.BloodType;
+import com.ftn.sbnz.model.models.RhPhenotype;
+
 
 @RestController
 public class SampleAppController {
@@ -22,7 +26,17 @@ public class SampleAppController {
 	@RequestMapping(value = "/forward", method = RequestMethod.GET, produces = "application/json")
 	public void getQuestions() {
 		log.info("\npokrenut forward\n");
-		sampleService.findStratiformis();
+		BloodSample sample = new BloodSample(
+			1, BloodType.A, true, 
+			RhPhenotype.Dce, true, 
+			true, 
+			false, 
+			true, 
+			true, 
+			false, 
+			false, 
+			false);
+		sampleService.checkBloodSample(sample);
 		log.info("\nzavrsen forward-------------------------------------------------------------------------------------------\n");
 
 	}

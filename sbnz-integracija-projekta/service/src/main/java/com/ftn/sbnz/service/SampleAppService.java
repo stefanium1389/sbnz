@@ -25,12 +25,9 @@ public class SampleAppService {
 		this.kieContainer = kieContainer;
 	}
 
-	public void findStratiformis(){
-		KieSession kSession = kieContainer.newKieSession("bwKsession");
-
-		kSession.insert(new BloodSample(1, BloodType.A, true, RhPhenotype.Dce, true, true, false, true, true, false, false, false));
-
-		kSession.insert( "go5" );
+	public void checkBloodSample(BloodSample bloodSample){
+		KieSession kSession = kieContainer.newKieSession("fwKsession");
+		kSession.insert(bloodSample);
     	kSession.fireAllRules();
 	}
 

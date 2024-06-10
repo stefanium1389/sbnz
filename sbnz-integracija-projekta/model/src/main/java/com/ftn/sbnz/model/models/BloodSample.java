@@ -1,43 +1,18 @@
 package com.ftn.sbnz.model.models;
 
-import org.kie.api.definition.type.Position;
-
 public class BloodSample {
 
-    @Position(0)
     private int id;
-
-    @Position(1)
     private BloodType bloodType;
-
-    @Position(2)
     private boolean RhD;
-
-    @Position(3)
     private RhPhenotype rhPhenotype;
-
-    @Position(4)
     private boolean irregularEritrociteAntibodies;
-
-    @Position(5)
     private boolean irregularEritrociteAntibodiesPresent;
-
-    @Position(6)
     private boolean irregularEritrociteAntibodiesSpecific;
-
-    @Position(7)
     private boolean useEritrocitesOnly;
-
-    @Position(8)
     private boolean hivPositive;
-
-    @Position(9)
     private boolean hepatitisBPositive;
-
-    @Position(10)
     private boolean hepatitisCPositive;
-
-    @Position(11)
     private boolean syphilisPositive;
 
     public BloodSample(int id, BloodType bloodType, boolean rhD, RhPhenotype rhPhenotype, boolean irregularEritrociteAntibodies,
