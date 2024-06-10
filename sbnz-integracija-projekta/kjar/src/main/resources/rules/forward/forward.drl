@@ -10,130 +10,133 @@ rule "HIV Positive"
     when
         $sample : BloodSample(isHivPositive() == true, isAdditionalTestingDone() == false)
     then
-        System.out.println("Sample ID " + $sample.getId() + " initial test is HIV positive. Additional testing needed");
         modify($sample){
             setAdditionalTesting(true);
         }
+        System.out.println("Sample ID " + $sample.getId() + " initial test is HIV positive. Additional testing needed");
+
 end
 
 rule "HIV Positive additional test"
     when
         $sample : BloodSample(isHivPositive() == true, isAdditionalTesting() == true)
-        $dto: BloodSampleDto(getId() == $sample.getId())
+        $dto : BloodSampleDto(id == $sample.getId())
     then
-        modify($sample){
-            setAdditionalTesting(false);
-            redoHIVTest();
-            setAdditionalTestingDone(true);
-        }
-        modify($dto){
+
+        $sample.setAdditionalTesting(false);
+        $sample.redoHIVTest();
+        $sample.setAdditionalTestingDone(true);
+        update($sample);
+        modify($dto) {
             setHivPositive($sample.isHivPositive());
         }
-        System.out.println("Sample ID " + $sample.getId() + " is HIV " + $sample.isHivPositive() +" after additional testing");
-
+        System.out.println("Sample ID " + $sample.getId() + " is HIV " + $sample.isHivPositive() + " after additional testing");
 end
 
-rule "Hepatitis B Positive"
-    when
-        $sample : BloodSample(isHepatitisBPositive() == true, isAdditionalTestingDone() == false)
-    then
-        System.out.println("Sample ID " + $sample.getId() + " initial test is Hepatitis B positive. Additional testing needed");
-        modify($sample){
-            setAdditionalTesting(true);
-        }
-end
 
-rule "Hepatitis B Positive additional test"
-    when
-        $sample : BloodSample(isHepatitisBPositive() == true, isAdditionalTesting() == true)
-        $dto: BloodSampleDto(getId() == $sample.getId())
-    then
-        modify($sample){
-            setAdditionalTesting(false);
-            redoHepatitisBTest();
-            setAdditionalTestingDone(true);
-        }
-        modify($dto){
-            setHepatitisBPositive($sample.isHepatitisBPositive());
-        }
-        System.out.println("Sample ID " + $sample.getId() + " is Hepatitis C " + $sample.isHepatitisBPositive() +" after additional testing");
+// rule "Hepatitis B Positive"
+//     when
+//         $sample : BloodSample(isHepatitisBPositive() == true, isAdditionalTestingDone() == false)
+//     then
+//         System.out.println("Sample ID " + $sample.getId() + " initial test is Hepatitis B positive. Additional testing needed");
+//         modify($sample){
+//             setAdditionalTesting(true);
+//         }
+// end
 
-end
+// rule "Hepatitis B Positive additional test"
+//     when
+//         $sample : BloodSample(isHepatitisBPositive() == true, isAdditionalTesting() == true)
+//         $dto: BloodSampleDto(getId() == $sample.getId())
+//     then
+//         modify($sample){
+//             setAdditionalTesting(false);
+//             redoHepatitisBTest();
+//             setAdditionalTestingDone(true);
+//         }
+//         modify($dto){
+//             setHepatitisBPositive($sample.isHepatitisBPositive());
+//         }
+//         System.out.println("Sample ID " + $sample.getId() + " is Hepatitis C " + $sample.isHepatitisBPositive() +" after additional testing");
 
-rule "Hepatitis C Positive"
-    when
-        $sample : BloodSample(isHepatitisCPositive() == true, isAdditionalTestingDone() == false)
-    then
-        System.out.println("Sample ID " + $sample.getId() + " initial test is Hepatitis C positive. Additional testing needed");
-        modify($sample){
-            setAdditionalTesting(true);
-        }
-end
+// end
 
-rule "Hepatitis C Positive additional test"
-    when
-        $sample : BloodSample(isHepatitisCPositive() == true, isAdditionalTesting() == true)
-        $dto: BloodSampleDto(getId() == $sample.getId())
-    then
-        modify($sample){
-            setAdditionalTesting(false);
-            redoHepatitisCTest();
-            setAdditionalTestingDone(true);
-        }
-        modify($dto){
-            setHepatitisCPositive($sample.isHepatitisCPositive());
-        }
-        System.out.println("Sample ID " + $sample.getId() + " is Hepatitis C " + $sample.isHepatitisCPositive() +" after additional testing");
+// rule "Hepatitis C Positive"
+//     when
+//         $sample : BloodSample(isHepatitisCPositive() == true, isAdditionalTestingDone() == false)
+//     then
+//         System.out.println("Sample ID " + $sample.getId() + " initial test is Hepatitis C positive. Additional testing needed");
+//         modify($sample){
+//             setAdditionalTesting(true);
+//         }
+// end
 
-end
+// rule "Hepatitis C Positive additional test"
+//     when
+//         $sample : BloodSample(isHepatitisCPositive() == true, isAdditionalTesting() == true)
+//         $dto: BloodSampleDto(getId() == $sample.getId())
+//     then
+//         modify($sample){
+//             setAdditionalTesting(false);
+//             redoHepatitisCTest();
+//             setAdditionalTestingDone(true);
+//         }
+//         modify($dto){
+//             setHepatitisCPositive($sample.isHepatitisCPositive());
+//         }
+//         System.out.println("Sample ID " + $sample.getId() + " is Hepatitis C " + $sample.isHepatitisCPositive() +" after additional testing");
 
-rule "Syphillis Positive"
-    when
-        $sample : BloodSample(isSyphilisPositive() == true, isAdditionalTestingDone() == false)
-    then
-        System.out.println("Sample ID " + $sample.getId() + " initial test is syphilis positive. Additional testing needed");
-        modify($sample){
-            setAdditionalTesting(true);
-        }
-end
+// end
 
-rule "Syphillis Positive additional test"
-    when
-        $sample : BloodSample(isSyphilisPositive() == true, isAdditionalTesting() == true)
-        $dto: BloodSampleDto(getId() == $sample.getId())
-    then
-        modify($sample){
-            setAdditionalTesting(false);
-            redoSyphilisTest();
-            setAdditionalTestingDone(true);
-        }
-        modify($dto){
-            setSyphilisPositive($sample.isSyphilisPositive());
-        }
-        System.out.println("Sample ID " + $sample.getId() + " is Hepatitis C " + $sample.isHepatitisCPositive() +" after additional testing");
+// rule "Syphillis Positive"
+//     when
+//         $sample : BloodSample(isSyphilisPositive() == true, isAdditionalTestingDone() == false)
+//     then
+//         System.out.println("Sample ID " + $sample.getId() + " initial test is syphilis positive. Additional testing needed");
+//         modify($sample){
+//             setAdditionalTesting(true);
+//         }
+// end
 
-end
+// rule "Syphillis Positive additional test"
+//     when
+//         $sample : BloodSample(isSyphilisPositive() == true, isAdditionalTesting() == true)
+//         $dto: BloodSampleDto(getId() == $sample.getId())
+//     then
+//         modify($sample){
+//             setAdditionalTesting(false);
+//             redoSyphilisTest();
+//             setAdditionalTestingDone(true);
+//         }
+//         modify($dto){
+//             setSyphilisPositive($sample.isSyphilisPositive());
+//         }
+//         System.out.println("Sample ID " + $sample.getId() + " is Hepatitis C " + $sample.isHepatitisCPositive() +" after additional testing");
+
+// end
 
 rule "RhD Positive"
     when
         $sample : BloodSample(isRhD() == true)
         $dto: BloodSampleDto(getId() == $sample.getId())
     then
-        modify($dto){setRhD(true); setRhdPhenotype($sample.getRhPhenotype.name());}
+        $dto.setRhD(true); 
+        $dto.setRhPhenotype($sample.getRhPhenotype().name());
+        update($dto);
         System.out.println("Sample ID " + $sample.getId() + " is RhD positive and has Rh Phenotype: " + $sample.getRhPhenotype());
 end
 
-rule "RhD Negative"
-    when
-        $sample : BloodSample(isRhD() == false)
-        $dto : BloodSampleDto(getId() == $sample.getId())
-    then
-        modify($dto) {
-            setRhD(false);
-            setRhdPhenotype(null);
-        }
-        System.out.println("Sample ID " + $sample.getId() + " is RhD negative");
-end
+// rule "RhD Negative"
+//     when
+//         $sample : BloodSample(isRhD() == false)
+//         $dto : BloodSampleDto(getId() == $sample.getId())
+//     then
+//         modify($dto) {
+//             setRhD(false);
+//             setRhdPhenotype(null);
+//         }
+//         System.out.println("Sample ID " + $sample.getId() + " is RhD negative");
+// end
 
 // rule "Ban donor with transmittable disease"
 //     when

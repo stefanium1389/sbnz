@@ -88,5 +88,4 @@ public class BloodSampleDto {
     public void setUseEritrocitesOnly(boolean useEritrocitesOnly) {
         this.useEritrocitesOnly = useEritrocitesOnly;
     }
-
 }

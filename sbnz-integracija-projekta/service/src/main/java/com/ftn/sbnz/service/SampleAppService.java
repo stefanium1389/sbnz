@@ -25,11 +25,12 @@ public class SampleAppService {
 		this.kieContainer = kieContainer;
 	}
 
-	public void checkBloodSample(BloodSample bloodSample){
+	public BloodSampleDto checkBloodSample(BloodSample bloodSample){
 		KieSession kSession = kieContainer.newKieSession("fwKsession");
 		BloodSampleDto dto = new BloodSampleDto();
-		dto.setDonorId(1);
+		dto.setDonorId(bloodSample.getDonorId());
 		dto.setId(bloodSample.getId());
+		dto.setBloodType(bloodSample.getBloodType().name());
 		kSession.insert(bloodSample);
 		kSession.insert(new BloodDonor(
 		1,
@@ -39,6 +40,7 @@ public class SampleAppService {
 		null
 		));
     	kSession.fireAllRules();
+		return dto;
 	}
 
 }
