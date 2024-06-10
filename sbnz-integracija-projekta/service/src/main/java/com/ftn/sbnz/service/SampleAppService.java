@@ -32,6 +32,7 @@ public class SampleAppService {
 		dto.setId(bloodSample.getId());
 		dto.setBloodType(bloodSample.getBloodType().name());
 		kSession.insert(bloodSample);
+		kSession.insert(dto);
 		kSession.insert(new BloodDonor(
 		1,
 		0,
