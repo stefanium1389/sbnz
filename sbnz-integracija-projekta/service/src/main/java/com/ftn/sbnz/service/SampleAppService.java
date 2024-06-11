@@ -2,6 +2,7 @@ package com.ftn.sbnz.service;
 
 import java.io.InputStream;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.HashMap;
@@ -174,6 +175,11 @@ public class SampleAppService {
 		donation.setDate(LocalDateTime.now());
 		donation.setUseEritrocitesOnly(dto.isUseEritrocitesOnly());
 		this.donations.add(donation);
+		BloodDonor donor = this.donors.get(donation.getDonorId());
+		donor.setCanDonate(false);
+		donor.setBannedUntil(LocalDateTime.now().plus(16,ChronoUnit.WEEKS));
+		donor.setLastDonated(LocalDateTime.now());
+		donor.setNumberOfDonations(donor.getNumberOfDonations() + 1);
 	}
 
 	private KieSession createKieSessionFromDRL(String drl){
