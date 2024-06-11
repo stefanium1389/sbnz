@@ -3,7 +3,7 @@ package com.ftn.sbnz.model.dto;
 public class DonorQuestionaireDto {
 
     private int donorId;
-    private boolean isVaccinatedRecently;
+    private boolean vaccinatedRecently;
     private boolean takingMedicine;
     private boolean hadAspirin;
     private boolean hasDrunkAlcohol;
@@ -20,7 +20,7 @@ public class DonorQuestionaireDto {
             boolean hasDrunkAlcohol, boolean hadTickLymeDisease, boolean hadFever, boolean didTattoosOrPiercing,
             boolean recievedBloodorOperated, boolean hasHepatitis, boolean hasHIV, boolean hasTakenDrugs) {
         this.donorId = donorId;
-        this.isVaccinatedRecently = isVaccinatedRecently;
+        this.vaccinatedRecently = isVaccinatedRecently;
         this.takingMedicine = takingMedicine;
         this.hadAspirin = hadAspirin;
         this.hasDrunkAlcohol = hasDrunkAlcohol;
@@ -39,10 +39,10 @@ public class DonorQuestionaireDto {
         this.donorId = donorId;
     }
     public boolean isVaccinatedRecently() {
-        return isVaccinatedRecently;
+        return vaccinatedRecently;
     }
     public void setVaccinatedRecently(boolean isVaccinatedRecently) {
-        this.isVaccinatedRecently = isVaccinatedRecently;
+        this.vaccinatedRecently = isVaccinatedRecently;
     }
     public boolean isTakingMedicine() {
         return takingMedicine;

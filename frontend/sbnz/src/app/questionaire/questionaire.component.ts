@@ -70,7 +70,7 @@ export class QuestionaireComponent {
     if (this.isFormValid) {
       const data: Questionnaire = {
         donorId: this.donorId,
-        isVaccinatedRecently: this.questions.find(q => q.key === 'isVaccinatedRecently')?.answer === 'Yes',
+        vaccinatedRecently: this.questions.find(q => q.key === 'isVaccinatedRecently')?.answer === 'Yes',
         takingMedicine: this.questions.find(q => q.key === 'takingMedicine')?.answer === 'Yes',
         hadAspirin: this.questions.find(q => q.key === 'hadAspirin')?.answer === 'Yes',
         hasDrunkAlcohol: this.questions.find(q => q.key === 'hasDrunkAlcohol')?.answer === 'Yes',
@@ -105,7 +105,7 @@ export class QuestionaireComponent {
 
 export interface Questionnaire {
   donorId: number;
-  isVaccinatedRecently: boolean;
+  vaccinatedRecently: boolean;
   takingMedicine: boolean;
   hadAspirin: boolean;
   hasDrunkAlcohol: boolean;
