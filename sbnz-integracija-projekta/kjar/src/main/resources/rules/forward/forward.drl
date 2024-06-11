@@ -56,7 +56,7 @@ rule "Hepatitis B Positive additional test"
         $sample.redoHepatitisBTest();
         $sample.setAdditionalTestingDone(true);
         update($sample);
-        $dto.setHepatitisBPositive($sample.isHepatitisBPositive);
+        $dto.setHepatitisBPositive($sample.isHepatitisBPositive());
         update($dto);
         System.out.println("Sample ID " + $sample.getId() + " is Hepatitis B " + $sample.isHepatitisBPositive() +" after additional testing");
 

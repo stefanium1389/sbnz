@@ -149,6 +149,9 @@ public class SampleAppService {
 					donor.setCanDonate(true);
 				}
 			}
+			if(!donor.isCanDonate()){
+				return donor;
+			}
 		}
 		else{
 			donor = new BloodDonor(
