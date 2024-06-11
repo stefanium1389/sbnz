@@ -113,6 +113,12 @@ public class SampleAppService {
 		BloodDonor donor;
 		if(donors.containsKey(dto.getDonorId())){
 			donor = donors.get(dto.getDonorId());
+			if(!donor.isCanDonate()){
+				if(LocalDateTime.now().isAfter(donor.getBannedUntil())){
+					donor.setBannedUntil(null);
+					donor.setCanDonate(true);
+				}
+			}
 		}
 		else{
 			donor = new BloodDonor(
