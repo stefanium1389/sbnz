@@ -1,135 +1,14 @@
 package forward
 
 import com.ftn.sbnz.model.models.BloodSample
+import com.ftn.sbnz.model.models.BloodDonation
+import com.ftn.sbnz.model.dto.BloodStatusDto
 import com.ftn.sbnz.model.dto.BloodSampleDto
 import com.ftn.sbnz.model.models.BloodDonor
 import com.ftn.sbnz.model.dto.DonorQuestionaireDto
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
-// rule "Questionaire: Drunk alcohol recently"
-//     when
-//         $q: DonorQuestionaireDto(isHasDrunkAlcohol() == true)
-//         $donor: BloodDonor(getId() == $q.getDonorId())
-//     then
-//         $donor.setCanDonate(false);
-//         $donor.setBannedUntil(LocalDateTime.now().plus(1, ChronoUnit.DAYS));
-//         update($donor);
-//         System.out.println("Donor ID: " +$donor.getId()+" took alcohol recently, banned for 1 day until "+$donor.getBannedUntil());
-// end
-
-// rule "Questionaire: Medicated recently"
-//     when
-//         $q: DonorQuestionaireDto(isTakingMedicine() == true)
-//         $donor: BloodDonor(getId() == $q.getDonorId())
-//     then
-//         $donor.setCanDonate(false);
-//         $donor.setBannedUntil(LocalDateTime.now().plus(3, ChronoUnit.DAYS));
-//         update($donor);
-//         System.out.println("Donor ID: " +$donor.getId()+" took medicine recently, banned for 3 days until "+$donor.getBannedUntil());
-
-// end
-
-// rule "Questionaire: Aspirin recently"
-//     when
-//         $q: DonorQuestionaireDto(isHadAspirin() == true)
-//         $donor: BloodDonor(getId() == $q.getDonorId())
-//     then
-//         $donor.setCanDonate(false);
-//         $donor.setBannedUntil(LocalDateTime.now().plus(5, ChronoUnit.DAYS));
-//         update($donor);
-//         System.out.println("Donor ID: " +$donor.getId()+" took aspirin recently, banned for 5 days until "+$donor.getBannedUntil());
-
-// end
-
-// rule "Questionaire: Fever recently"
-//     when
-//         $q: DonorQuestionaireDto(isHadFever() == true)
-//         $donor: BloodDonor(getId() == $q.getDonorId())
-//     then
-//         $donor.setCanDonate(false);
-//         $donor.setBannedUntil(LocalDateTime.now().plus(10, ChronoUnit.DAYS));
-//         update($donor);
-//         System.out.println("Donor ID: " +$donor.getId()+" has had a fever recently, banned for 10 days until "+$donor.getBannedUntil());
-// end
-
-// rule "Questionaire: Tattoos recently"
-//     when
-//         $q: DonorQuestionaireDto(isDidTattoosOrPiercing() == true)
-//         $donor: BloodDonor(getId() == $q.getDonorId())
-//     then
-//         $donor.setCanDonate(false);
-//         $donor.setBannedUntil(LocalDateTime.now().plus(6, ChronoUnit.MONTHS));
-//         update($donor);
-//         System.out.println("Donor ID: " +$donor.getId()+" has done tatoos or piercings recently, banned for 6 months until "+$donor.getBannedUntil());
-// end
-
-// rule "Questionaire: Recieved blood or operated recently"
-//     when
-//         $q: DonorQuestionaireDto(isRecievedBloodorOperated() == true)
-//         $donor: BloodDonor(getId() == $q.getDonorId())
-//     then
-//         $donor.setCanDonate(false);
-//         $donor.setBannedUntil(LocalDateTime.now().plus(6, ChronoUnit.MONTHS));
-//         update($donor);
-//         System.out.println("Donor ID: " +$donor.getId()+" has recieved blood or operated recently, banned for 6 months until "+$donor.getBannedUntil());
-// end
-
-// rule "Questionaire: Tick or Lyme disease recently"
-//     when
-//         $q: DonorQuestionaireDto(isHadTickLymeDisease() == true)
-//         $donor: BloodDonor(getId() == $q.getDonorId())
-//     then
-//         $donor.setCanDonate(false);
-//         $donor.setBannedUntil(LocalDateTime.now().plus(12, ChronoUnit.MONTHS));
-//         update($donor);
-//         System.out.println("Donor ID: " +$donor.getId()+" has had ticks or Lyme disease recently, banned for 12 months until "+$donor.getBannedUntil());
-// end
-
-// rule "Questionaire: Vaccinated recently"
-//     when
-//         $q: DonorQuestionaireDto(isVaccinatedRecently() == true)
-//         $donor: BloodDonor(getId() == $q.getDonorId())
-//     then
-//         $donor.setCanDonate(false);
-//         $donor.setBannedUntil(LocalDateTime.now().plus(12, ChronoUnit.MONTHS));
-//         update($donor);
-//         System.out.println("Donor ID: " +$donor.getId()+" was vaccinated recently, banned for 12 months until "+$donor.getBannedUntil());
-
-// end
-
-// rule "Questionaire: has had hepatitis A,B,C"
-//     when
-//         $q: DonorQuestionaireDto(isHasHepatitis() == true)
-//         $donor: BloodDonor(getId() == $q.getDonorId())
-//     then
-//         $donor.setCanDonate(false);
-//         $donor.setBannedUntil(LocalDateTime.now().plus(150, ChronoUnit.YEARS));
-//         update($donor);
-//         System.out.println("Donor ID: " +$donor.getId()+" has had hepatitis A,B,C , banned forever "+$donor.getBannedUntil());
-// end
-
-// rule "Questionaire: has had HIV"
-//     when
-//         $q: DonorQuestionaireDto(isHasHIV() == true)
-//         $donor: BloodDonor(getId() == $q.getDonorId())
-//     then
-//         $donor.setCanDonate(false);
-//         $donor.setBannedUntil(LocalDateTime.now().plus(150, ChronoUnit.YEARS));
-//         update($donor);
-//         System.out.println("Donor ID: " +$donor.getId()+" has had HIV , banned forever "+$donor.getBannedUntil());
-// end
-
-// rule "Questionaire: has had drugs"
-//     when
-//         $q: DonorQuestionaireDto(isHasTakenDrugs() == true)
-//         $donor: BloodDonor(getId() == $q.getDonorId())
-//     then
-//         $donor.setCanDonate(false);
-//         $donor.setBannedUntil(LocalDateTime.now().plus(150, ChronoUnit.YEARS));
-//         update($donor);
-//         System.out.println("Donor ID: " +$donor.getId()+" has had drugs , banned forever "+$donor.getBannedUntil());
-// end
 
 rule "HIV Positive"
     when
@@ -152,9 +31,8 @@ rule "HIV Positive additional test"
         $sample.redoHIVTest();
         $sample.setAdditionalTestingDone(true);
         update($sample);
-        modify($dto) {
-            setHivPositive($sample.isHivPositive());
-        }
+        $dto.setHivPositive($sample.isHivPositive());
+        update($dto);
         System.out.println("Sample ID " + $sample.getId() + " is HIV " + $sample.isHivPositive() + " after additional testing");
 end
 
@@ -178,10 +56,9 @@ rule "Hepatitis B Positive additional test"
         $sample.redoHepatitisBTest();
         $sample.setAdditionalTestingDone(true);
         update($sample);
-        modify($dto){
-            setHepatitisBPositive($sample.isHepatitisBPositive());
-        }
-        System.out.println("Sample ID " + $sample.getId() + " is Hepatitis C " + $sample.isHepatitisBPositive() +" after additional testing");
+        $dto.setHepatitisBPositive($sample.isHepatitisBPositive);
+        update($dto);
+        System.out.println("Sample ID " + $sample.getId() + " is Hepatitis B " + $sample.isHepatitisBPositive() +" after additional testing");
 
 end
 
@@ -204,9 +81,9 @@ rule "Hepatitis C Positive additional test"
         $sample.redoHepatitisCTest();
         $sample.setAdditionalTestingDone(true);
         update($sample);
-        modify($dto){
-            setHepatitisCPositive($sample.isHepatitisCPositive());
-        }
+
+        $dto.setHepatitisCPositive($sample.isHepatitisCPositive());
+        update($dto);
         System.out.println("Sample ID " + $sample.getId() + " is Hepatitis C " + $sample.isHepatitisCPositive() +" after additional testing");
 
 end
@@ -229,9 +106,8 @@ rule "Syphillis Positive additional test"
         $sample.setAdditionalTesting(false);
         $sample.redoSyphilisTest();
         $sample.setAdditionalTestingDone(true);
-        modify($dto){
-            setSyphilisPositive($sample.isSyphilisPositive());
-        }
+        $dto.setSyphilisPositive($sample.isSyphilisPositive());
+        update($dto);
         System.out.println("Sample ID " + $sample.getId() + " is syphillis " + $sample.isHepatitisCPositive() +" after additional testing");
 
 end
@@ -342,5 +218,33 @@ rule "Check for irregular eritrocite antibodies: specific"
         $donor.setBannedUntil(LocalDateTime.now().plus(150, ChronoUnit.YEARS));
         update($donor);
         System.out.println("Irregular eritrocite antibodies present and specified, ban forever user ID "+$donor.getId());
+end
+
+rule "Blood reserves critical"
+    when
+        $dto: BloodStatusDto()
+        $totalDonations : Number(intValue <= 3) from accumulate (
+        BloodDonation(useEritrocitesOnly == false),
+        count()
+    )
+    then
+        $dto.setAmount($totalDonations.intValue());
+        $dto.setStatus("Critical");
+        update($dto);
+        System.out.println("Amount of full-blood donations in storage is "+$totalDonations);
+end
+
+rule "Blood reserves normal"
+    when
+        $dto: BloodStatusDto()
+        $totalDonations : Number(intValue > 3) from accumulate (
+        BloodDonation(useEritrocitesOnly == false),
+        count()
+    )
+    then
+        $dto.setAmount($totalDonations.intValue());
+        $dto.setStatus("Normal");
+        update($dto);
+        System.out.println("Amount of full-blood donations in storage is "+$totalDonations);
 end
 

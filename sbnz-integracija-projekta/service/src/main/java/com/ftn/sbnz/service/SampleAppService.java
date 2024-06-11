@@ -22,6 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ftn.sbnz.model.dto.BloodSampleDto;
+import com.ftn.sbnz.model.dto.BloodStatusDto;
 import com.ftn.sbnz.model.dto.DonorQuestionaireDto;
 import com.ftn.sbnz.model.models.BloodDonation;
 import com.ftn.sbnz.model.models.BloodDonor;
@@ -191,6 +192,18 @@ public class SampleAppService {
         }
         
         return kieHelper.build().newKieSession();
+    }
+
+    public BloodStatusDto status() {
+		BloodStatusDto dto = new BloodStatusDto();
+		KieSession kSession = kieContainer.newKieSession("fwKsession");
+		kSession.insert(dto);
+		for(BloodDonation b : this.donations){
+			kSession.insert(b);
+		}
+		kSession.fireAllRules();
+		kSession.destroy();
+		return dto;
     }
 
 }

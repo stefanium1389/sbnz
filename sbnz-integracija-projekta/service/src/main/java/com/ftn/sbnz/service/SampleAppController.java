@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ftn.sbnz.model.dto.BloodSampleDto;
+import com.ftn.sbnz.model.dto.BloodStatusDto;
 import com.ftn.sbnz.model.dto.DonorQuestionaireDto;
 import com.ftn.sbnz.model.models.BloodDonor;
 
@@ -41,5 +42,10 @@ public class SampleAppController {
 	public ResponseEntity<?> processQuestionaire(@RequestBody DonorQuestionaireDto dto){
 		BloodDonor donor = sampleService.checkQuestionnaire(dto);
 		return new ResponseEntity<>(donor, HttpStatus.OK);
+	}
+	@RequestMapping(value = "/bloodStatus", method = RequestMethod.GET, produces ="application/json")
+	public ResponseEntity<?> getBloodStatus(){
+		BloodStatusDto dto = sampleService.status();
+		return new ResponseEntity<>(dto, HttpStatus.OK);
 	}
 }

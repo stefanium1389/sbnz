@@ -42,7 +42,7 @@ export class QuestionaireComponent {
   }
 
   donateBlood() {
-    this.http.post<BloodSampleDto>(`http://localhost:8080/giveBlood`, this.sample).subscribe();
+    this.http.post<BloodSampleDto>(`http://localhost:8080/donateBlood`, this.sample).subscribe();
     window.location.reload();
   }
 

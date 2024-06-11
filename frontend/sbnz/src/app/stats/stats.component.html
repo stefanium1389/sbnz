@@ -1,1 +1,5 @@
-<p>stats works!</p>
+<div *ngIf="status !== undefined">
+    <h1>Kolicina: {{status.amount}}</h1>
+    <h1>Status zaliha: {{status.status}}</h1>
+    <p>samo cela krv se racuna</p>
+</div>
