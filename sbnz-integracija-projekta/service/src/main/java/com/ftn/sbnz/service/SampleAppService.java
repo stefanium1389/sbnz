@@ -1,12 +1,21 @@
 package com.ftn.sbnz.service;
 
+import java.io.InputStream;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.HashMap;
 import java.util.Random;
 
+import org.drools.template.objects.ArrayDataProvider;
+import org.drools.template.DataProvider;
+import org.drools.template.DataProviderCompiler;
+import org.kie.api.builder.Message;
+import org.kie.api.builder.Results;
+import org.kie.api.io.ResourceType;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
+import org.kie.internal.utils.KieHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -109,7 +118,26 @@ public class SampleAppService {
 	}
 
 	public BloodDonor checkQuestionnaire(DonorQuestionaireDto dto){
-		KieSession kSession = kieContainer.newKieSession("fwKsession");
+
+		InputStream template = this.getClass().getResourceAsStream("/rules/forward/questionaire-template.drt");
+		DataProvider dataProvider = new ArrayDataProvider(new String[][]{
+				//condition,	duration,   unit,   message,		salience
+                {"isHasDrunkAlcohol", "1", "DAYS", "Drunk alcohol recently", "11"},
+                {"isTakingMedicine", "3", "DAYS", "Medicated recently", "10"},
+				{"isHadAspirin","5","DAYS","Aspirin recently","9"},
+				{"isHadFever","10","DAYS","Fever recently","8"},
+				{"isDidTattoosOrPiercing", "6", "MONTHS", "Tattoos recently","7"},
+				{"isRecievedBloodorOperated", "6", "MONTHS","Recieved blood or operated recently", "6"},
+				{"isHadTickLymeDisease", "12", "MONTHS", "Tick or Lyme disease recently","5"},
+				{"isVaccinatedRecently","12","MONTHS","Vaccinated recently","4"},
+				{"isHasHepatitis","150","YEARS","has had hepatitis A,B,C","3"},
+				{"isHasHIV", "150","YEARS","has had HIV","2"},
+				{"isHasTakenDrugs","150","YEARS","has taken drugs","1"}
+        });
+		DataProviderCompiler converter = new DataProviderCompiler();
+		String drl = converter.compile(dataProvider, template);
+
+		KieSession kSession = createKieSessionFromDRL(drl);
 		BloodDonor donor;
 		if(donors.containsKey(dto.getDonorId())){
 			donor = donors.get(dto.getDonorId());
@@ -146,5 +174,23 @@ public class SampleAppService {
 		donation.setUseEritrocitesOnly(dto.isUseEritrocitesOnly());
 		this.donations.add(donation);
 	}
+
+	private KieSession createKieSessionFromDRL(String drl){
+        KieHelper kieHelper = new KieHelper();
+        kieHelper.addContent(drl, ResourceType.DRL);
+        
+        Results results = kieHelper.verify();
+        
+        if (results.hasMessages(Message.Level.WARNING, Message.Level.ERROR)){
+            List<Message> messages = results.getMessages(Message.Level.WARNING, Message.Level.ERROR);
+            for (Message message : messages) {
+                System.out.println("Error: "+message.getText());
+            }
+            
+            throw new IllegalStateException("Compilation errors were found. Check the logs.");
+        }
+        
+        return kieHelper.build().newKieSession();
+    }
 
 }

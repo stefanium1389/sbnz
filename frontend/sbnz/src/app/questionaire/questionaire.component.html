@@ -61,8 +61,8 @@
     </div>
     <div *ngIf="!sample.canDonate">
         <h2>Odbijeni ste za davaoca krvi</h2>
-        <h2 *ngIf="!isString(donor.bannedUntil)">Iskljuceni ste iz selekcije do: {{donor.bannedUntil | date: 'dd/MM/yyyy'}}</h2>
-        <h2 *ngIf="isString(donor.bannedUntil)">Iskljuceni ste iz selekcije do: {{donor.bannedUntil}}</h2>        
+        <h2 *ngIf="!isString(sample.bannedUntil)">Iskljuceni ste iz selekcije do: {{sample.bannedUntil | date: 'dd/MM/yyyy'}}</h2>
+        <h2 *ngIf="isString(sample.bannedUntil)">Iskljuceni ste iz selekcije do: {{sample.bannedUntil}}</h2>        
         <button (click)="resetQuestionaire()">Upitnik</button>
     </div>
 </div>

@@ -7,129 +7,129 @@ import com.ftn.sbnz.model.dto.DonorQuestionaireDto
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
-rule "Questionaire: Drunk alcohol recently"
-    when
-        $q: DonorQuestionaireDto(isHasDrunkAlcohol() == true)
-        $donor: BloodDonor(getId() == $q.getDonorId())
-    then
-        $donor.setCanDonate(false);
-        $donor.setBannedUntil(LocalDateTime.now().plus(1, ChronoUnit.DAYS));
-        update($donor);
-        System.out.println("Donor ID: " +$donor.getId()+" took alcohol recently, banned for 1 day until "+$donor.getBannedUntil());
-end
+// rule "Questionaire: Drunk alcohol recently"
+//     when
+//         $q: DonorQuestionaireDto(isHasDrunkAlcohol() == true)
+//         $donor: BloodDonor(getId() == $q.getDonorId())
+//     then
+//         $donor.setCanDonate(false);
+//         $donor.setBannedUntil(LocalDateTime.now().plus(1, ChronoUnit.DAYS));
+//         update($donor);
+//         System.out.println("Donor ID: " +$donor.getId()+" took alcohol recently, banned for 1 day until "+$donor.getBannedUntil());
+// end
 
-rule "Questionaire: Medicated recently"
-    when
-        $q: DonorQuestionaireDto(isTakingMedicine() == true)
-        $donor: BloodDonor(getId() == $q.getDonorId())
-    then
-        $donor.setCanDonate(false);
-        $donor.setBannedUntil(LocalDateTime.now().plus(3, ChronoUnit.DAYS));
-        update($donor);
-        System.out.println("Donor ID: " +$donor.getId()+" took medicine recently, banned for 3 days until "+$donor.getBannedUntil());
+// rule "Questionaire: Medicated recently"
+//     when
+//         $q: DonorQuestionaireDto(isTakingMedicine() == true)
+//         $donor: BloodDonor(getId() == $q.getDonorId())
+//     then
+//         $donor.setCanDonate(false);
+//         $donor.setBannedUntil(LocalDateTime.now().plus(3, ChronoUnit.DAYS));
+//         update($donor);
+//         System.out.println("Donor ID: " +$donor.getId()+" took medicine recently, banned for 3 days until "+$donor.getBannedUntil());
 
-end
+// end
 
-rule "Questionaire: Aspirin recently"
-    when
-        $q: DonorQuestionaireDto(isHadAspirin() == true)
-        $donor: BloodDonor(getId() == $q.getDonorId())
-    then
-        $donor.setCanDonate(false);
-        $donor.setBannedUntil(LocalDateTime.now().plus(5, ChronoUnit.DAYS));
-        update($donor);
-        System.out.println("Donor ID: " +$donor.getId()+" took aspirin recently, banned for 5 days until "+$donor.getBannedUntil());
+// rule "Questionaire: Aspirin recently"
+//     when
+//         $q: DonorQuestionaireDto(isHadAspirin() == true)
+//         $donor: BloodDonor(getId() == $q.getDonorId())
+//     then
+//         $donor.setCanDonate(false);
+//         $donor.setBannedUntil(LocalDateTime.now().plus(5, ChronoUnit.DAYS));
+//         update($donor);
+//         System.out.println("Donor ID: " +$donor.getId()+" took aspirin recently, banned for 5 days until "+$donor.getBannedUntil());
 
-end
+// end
 
-rule "Questionaire: Fever recently"
-    when
-        $q: DonorQuestionaireDto(isHadFever() == true)
-        $donor: BloodDonor(getId() == $q.getDonorId())
-    then
-        $donor.setCanDonate(false);
-        $donor.setBannedUntil(LocalDateTime.now().plus(10, ChronoUnit.DAYS));
-        update($donor);
-        System.out.println("Donor ID: " +$donor.getId()+" has had a fever recently, banned for 10 days until "+$donor.getBannedUntil());
-end
+// rule "Questionaire: Fever recently"
+//     when
+//         $q: DonorQuestionaireDto(isHadFever() == true)
+//         $donor: BloodDonor(getId() == $q.getDonorId())
+//     then
+//         $donor.setCanDonate(false);
+//         $donor.setBannedUntil(LocalDateTime.now().plus(10, ChronoUnit.DAYS));
+//         update($donor);
+//         System.out.println("Donor ID: " +$donor.getId()+" has had a fever recently, banned for 10 days until "+$donor.getBannedUntil());
+// end
 
-rule "Questionaire: Tattoos recently"
-    when
-        $q: DonorQuestionaireDto(isDidTattoosOrPiercing() == true)
-        $donor: BloodDonor(getId() == $q.getDonorId())
-    then
-        $donor.setCanDonate(false);
-        $donor.setBannedUntil(LocalDateTime.now().plus(6, ChronoUnit.MONTHS));
-        update($donor);
-        System.out.println("Donor ID: " +$donor.getId()+" has done tatoos or piercings recently, banned for 6 months until "+$donor.getBannedUntil());
-end
+// rule "Questionaire: Tattoos recently"
+//     when
+//         $q: DonorQuestionaireDto(isDidTattoosOrPiercing() == true)
+//         $donor: BloodDonor(getId() == $q.getDonorId())
+//     then
+//         $donor.setCanDonate(false);
+//         $donor.setBannedUntil(LocalDateTime.now().plus(6, ChronoUnit.MONTHS));
+//         update($donor);
+//         System.out.println("Donor ID: " +$donor.getId()+" has done tatoos or piercings recently, banned for 6 months until "+$donor.getBannedUntil());
+// end
 
-rule "Questionaire: Recieved blood or operated recently"
-    when
-        $q: DonorQuestionaireDto(isRecievedBloodorOperated() == true)
-        $donor: BloodDonor(getId() == $q.getDonorId())
-    then
-        $donor.setCanDonate(false);
-        $donor.setBannedUntil(LocalDateTime.now().plus(6, ChronoUnit.MONTHS));
-        update($donor);
-        System.out.println("Donor ID: " +$donor.getId()+" has recieved blood or operated recently, banned for 6 months until "+$donor.getBannedUntil());
-end
+// rule "Questionaire: Recieved blood or operated recently"
+//     when
+//         $q: DonorQuestionaireDto(isRecievedBloodorOperated() == true)
+//         $donor: BloodDonor(getId() == $q.getDonorId())
+//     then
+//         $donor.setCanDonate(false);
+//         $donor.setBannedUntil(LocalDateTime.now().plus(6, ChronoUnit.MONTHS));
+//         update($donor);
+//         System.out.println("Donor ID: " +$donor.getId()+" has recieved blood or operated recently, banned for 6 months until "+$donor.getBannedUntil());
+// end
 
-rule "Questionaire: Tick or Lyme disease recently"
-    when
-        $q: DonorQuestionaireDto(isHadTickLymeDisease() == true)
-        $donor: BloodDonor(getId() == $q.getDonorId())
-    then
-        $donor.setCanDonate(false);
-        $donor.setBannedUntil(LocalDateTime.now().plus(12, ChronoUnit.MONTHS));
-        update($donor);
-        System.out.println("Donor ID: " +$donor.getId()+" has had ticks or Lyme disease recently, banned for 12 months until "+$donor.getBannedUntil());
-end
+// rule "Questionaire: Tick or Lyme disease recently"
+//     when
+//         $q: DonorQuestionaireDto(isHadTickLymeDisease() == true)
+//         $donor: BloodDonor(getId() == $q.getDonorId())
+//     then
+//         $donor.setCanDonate(false);
+//         $donor.setBannedUntil(LocalDateTime.now().plus(12, ChronoUnit.MONTHS));
+//         update($donor);
+//         System.out.println("Donor ID: " +$donor.getId()+" has had ticks or Lyme disease recently, banned for 12 months until "+$donor.getBannedUntil());
+// end
 
-rule "Questionaire: Vaccinated recently"
-    when
-        $q: DonorQuestionaireDto(isVaccinatedRecently() == true)
-        $donor: BloodDonor(getId() == $q.getDonorId())
-    then
-        $donor.setCanDonate(false);
-        $donor.setBannedUntil(LocalDateTime.now().plus(12, ChronoUnit.MONTHS));
-        update($donor);
-        System.out.println("Donor ID: " +$donor.getId()+" was vaccinated recently, banned for 12 months until "+$donor.getBannedUntil());
+// rule "Questionaire: Vaccinated recently"
+//     when
+//         $q: DonorQuestionaireDto(isVaccinatedRecently() == true)
+//         $donor: BloodDonor(getId() == $q.getDonorId())
+//     then
+//         $donor.setCanDonate(false);
+//         $donor.setBannedUntil(LocalDateTime.now().plus(12, ChronoUnit.MONTHS));
+//         update($donor);
+//         System.out.println("Donor ID: " +$donor.getId()+" was vaccinated recently, banned for 12 months until "+$donor.getBannedUntil());
 
-end
+// end
 
-rule "Questionaire: has had hepatitis A,B,C"
-    when
-        $q: DonorQuestionaireDto(isHasHepatitis() == true)
-        $donor: BloodDonor(getId() == $q.getDonorId())
-    then
-        $donor.setCanDonate(false);
-        $donor.setBannedUntil(LocalDateTime.now().plus(150, ChronoUnit.YEARS));
-        update($donor);
-        System.out.println("Donor ID: " +$donor.getId()+" has had hepatitis A,B,C , banned forever "+$donor.getBannedUntil());
-end
+// rule "Questionaire: has had hepatitis A,B,C"
+//     when
+//         $q: DonorQuestionaireDto(isHasHepatitis() == true)
+//         $donor: BloodDonor(getId() == $q.getDonorId())
+//     then
+//         $donor.setCanDonate(false);
+//         $donor.setBannedUntil(LocalDateTime.now().plus(150, ChronoUnit.YEARS));
+//         update($donor);
+//         System.out.println("Donor ID: " +$donor.getId()+" has had hepatitis A,B,C , banned forever "+$donor.getBannedUntil());
+// end
 
-rule "Questionaire: has had HIV"
-    when
-        $q: DonorQuestionaireDto(isHasHIV() == true)
-        $donor: BloodDonor(getId() == $q.getDonorId())
-    then
-        $donor.setCanDonate(false);
-        $donor.setBannedUntil(LocalDateTime.now().plus(150, ChronoUnit.YEARS));
-        update($donor);
-        System.out.println("Donor ID: " +$donor.getId()+" has had HIV , banned forever "+$donor.getBannedUntil());
-end
+// rule "Questionaire: has had HIV"
+//     when
+//         $q: DonorQuestionaireDto(isHasHIV() == true)
+//         $donor: BloodDonor(getId() == $q.getDonorId())
+//     then
+//         $donor.setCanDonate(false);
+//         $donor.setBannedUntil(LocalDateTime.now().plus(150, ChronoUnit.YEARS));
+//         update($donor);
+//         System.out.println("Donor ID: " +$donor.getId()+" has had HIV , banned forever "+$donor.getBannedUntil());
+// end
 
-rule "Questionaire: has had drugs"
-    when
-        $q: DonorQuestionaireDto(isHasTakenDrugs() == true)
-        $donor: BloodDonor(getId() == $q.getDonorId())
-    then
-        $donor.setCanDonate(false);
-        $donor.setBannedUntil(LocalDateTime.now().plus(150, ChronoUnit.YEARS));
-        update($donor);
-        System.out.println("Donor ID: " +$donor.getId()+" has had drugs , banned forever "+$donor.getBannedUntil());
-end
+// rule "Questionaire: has had drugs"
+//     when
+//         $q: DonorQuestionaireDto(isHasTakenDrugs() == true)
+//         $donor: BloodDonor(getId() == $q.getDonorId())
+//     then
+//         $donor.setCanDonate(false);
+//         $donor.setBannedUntil(LocalDateTime.now().plus(150, ChronoUnit.YEARS));
+//         update($donor);
+//         System.out.println("Donor ID: " +$donor.getId()+" has had drugs , banned forever "+$donor.getBannedUntil());
+// end
 
 rule "HIV Positive"
     when

@@ -1,0 +1,28 @@
+template header
+    condition
+    duration
+    unit
+    message
+    salience
+
+package forward
+
+import com.ftn.sbnz.model.models.BloodDonor
+import com.ftn.sbnz.model.dto.DonorQuestionaireDto
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+
+template "questionaire-question"
+
+rule "Questionaire: @{message}"
+    salience @{salience}
+    when
+        $q: DonorQuestionaireDto(@{condition}() == true)
+        $donor: BloodDonor(getId() == $q.getDonorId())
+    then
+        $donor.setCanDonate(false);
+        $donor.setBannedUntil(LocalDateTime.now().plus(@{duration}, ChronoUnit.@{unit}));
+        update($donor);
+        System.out.println("Donor ID: " +$donor.getId()+" @{message}, banned for @{duration} @{unit} until "+$donor.getBannedUntil());
+end
+end template
