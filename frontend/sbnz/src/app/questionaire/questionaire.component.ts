@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 })
 export class QuestionaireComponent {
 
+
   constructor(private http: HttpClient, private router: Router){
 
   }
@@ -30,15 +31,36 @@ export class QuestionaireComponent {
   isFormValid = true;
   isSubmitted = false;
   donor: Donor | undefined;
+  sample: BloodSampleDto | undefined;
 
   resetQuestionaire(){
     window.location.reload();
   }
 
-  testSample() {
-    this.http.get(`http://localhost:8080/testBlood/${this.donor!.id}`).subscribe({
-      next: (result)=> {
+  isString(value: any): boolean {
+    return typeof value === 'string';
+  }
 
+  donateBlood() {
+    this.http.post<BloodSampleDto>(`http://localhost:8080/giveBlood`, this.sample).subscribe();
+    window.location.reload();
+  }
+
+  testSample() {
+    this.http.get<BloodSampleDto>(`http://localhost:8080/testBlood/${this.donor!.id}`).subscribe({
+      next: (result)=> {
+        if(result.canDonate == false){
+          const bannedUntilDate = new Date(result.bannedUntil[0],result.bannedUntil[1]-1,result.bannedUntil[2]);
+          const currentDate = new Date();
+          if(bannedUntilDate.getTime() - currentDate.getTime() < 100 * 365 * 24 * 60 * 60 * 1000){
+            result.bannedUntil = bannedUntilDate;
+          }
+          else{
+            result.bannedUntil = "Zauvek"
+          }
+        }
+        this.sample = result
+        console.log(this.sample);
       }
     })
   }
@@ -106,7 +128,7 @@ export interface BloodSampleDto {
     id: number;
     donorId: number;
     bloodType: string;
-    RhD: boolean;
+    rhD: boolean;
     rhPhenotype: string;
     hivPositive: boolean;
     hepatitisBPositive: boolean;

@@ -27,14 +27,42 @@
         Odgovori u obradi...
     </div>
 </div>
-<div *ngIf="donor !== undefined">
+<div *ngIf="donor !== undefined && sample === undefined">
     <div *ngIf="donor.canDonate">
         <h2>Mozete proci na testiranje krvi</h2>
-        <button>Testiranje</button>
+        <button (click)="testSample()">Testiranje</button>
     </div>
     <div *ngIf="!donor.canDonate">
         <h2>Odbijeni ste za davaoca krvi</h2>
-        <h2>Iskljuceni ste iz selekcije do: {{donor.bannedUntil | date: 'dd/MM/yyyy'}}</h2>
+        <h2 *ngIf="!isString(donor.bannedUntil)">Iskljuceni ste iz selekcije do: {{donor.bannedUntil | date: 'dd/MM/yyyy'}}</h2>
+        <h2 *ngIf="isString(donor.bannedUntil)">Iskljuceni ste iz selekcije do: {{donor.bannedUntil}}</h2>  
+        <button (click)="resetQuestionaire()">Upitnik</button>
+    </div>
+</div>
+<div *ngIf="donor !== undefined && sample !== undefined">
+    <div>
+        <h1>Blood Sample Details</h1>
+    <div>
+        <p><strong>ID:</strong> {{ sample.id }}</p>
+        <p><strong>Donor ID:</strong> {{ sample.donorId }}</p>
+        <p><strong>Blood Type:</strong> {{ sample.bloodType }}</p>
+        <p><strong>RhD:</strong> {{ sample.rhD }}</p>
+        <p *ngIf="sample.rhD"><strong>Rh Phenotype:</strong> {{ sample.rhPhenotype }}</p>
+        <p><strong>HIV Positive:</strong> {{ sample.hivPositive }}</p>
+        <p><strong>Hepatitis B Positive:</strong> {{ sample.hepatitisBPositive }}</p>
+        <p><strong>Hepatitis C Positive:</strong> {{ sample.hepatitisCPositive }}</p>
+        <p><strong>Syphilis Positive:</strong> {{ sample.syphilisPositive }}</p>
+        <p><strong>Use Eritrocites Only:</strong> {{ sample.useEritrocitesOnly }}</p>
+    </div>
+    </div>
+    <div *ngIf="sample.canDonate">
+        <h2>Mozete dati krv, hvala vam za humani cin</h2>
+        <button (click)="donateBlood()">Donirajte krv</button>
+    </div>
+    <div *ngIf="!sample.canDonate">
+        <h2>Odbijeni ste za davaoca krvi</h2>
+        <h2 *ngIf="!isString(donor.bannedUntil)">Iskljuceni ste iz selekcije do: {{donor.bannedUntil | date: 'dd/MM/yyyy'}}</h2>
+        <h2 *ngIf="isString(donor.bannedUntil)">Iskljuceni ste iz selekcije do: {{donor.bannedUntil}}</h2>        
         <button (click)="resetQuestionaire()">Upitnik</button>
     </div>
 </div>

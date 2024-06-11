@@ -1,5 +1,7 @@
 package com.ftn.sbnz.service;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import com.ftn.sbnz.model.dto.BloodSampleDto;
 import com.ftn.sbnz.model.dto.DonorQuestionaireDto;
+import com.ftn.sbnz.model.models.BloodDonation;
 import com.ftn.sbnz.model.models.BloodDonor;
 import com.ftn.sbnz.model.models.BloodSample;
 import com.ftn.sbnz.model.models.BloodType;
@@ -26,6 +29,7 @@ public class SampleAppService {
 	private final KieContainer kieContainer;
 
 	private HashMap<Integer, BloodDonor> donors = new HashMap<Integer, BloodDonor>();
+	private ArrayList<BloodDonation> donations = new ArrayList<BloodDonation>();
 
 	@Autowired
 	public SampleAppService(KieContainer kieContainer) {
@@ -124,6 +128,17 @@ public class SampleAppService {
 		kSession.insert(donor);
 		kSession.fireAllRules();
 		return donor;
+	}
+
+	public void donateBlood(BloodSampleDto dto) {
+		Random r = new Random();
+		int x = r.nextInt(100000);
+		BloodDonation donation = new BloodDonation();
+		donation.setId(x);
+		donation.setDonorId(dto.getDonorId());
+		donation.setDate(LocalDateTime.now());
+		donation.setUseEritrocitesOnly(dto.isUseEritrocitesOnly());
+		this.donations.add(donation);
 	}
 
 }

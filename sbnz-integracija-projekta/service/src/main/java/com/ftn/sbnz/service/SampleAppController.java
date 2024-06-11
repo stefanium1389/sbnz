@@ -14,10 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ftn.sbnz.model.dto.BloodSampleDto;
 import com.ftn.sbnz.model.dto.DonorQuestionaireDto;
 import com.ftn.sbnz.model.models.BloodDonor;
-import com.ftn.sbnz.model.models.BloodSample;
-import com.ftn.sbnz.model.models.BloodType;
-import com.ftn.sbnz.model.models.RhPhenotype;
-
 
 @RestController
 public class SampleAppController {
@@ -30,11 +26,15 @@ public class SampleAppController {
 		this.sampleService = sampleService;
 	}
 
+	@RequestMapping(value = "/donateBlood", method = RequestMethod.POST, produces = "application/json")
+	public void donateBlood(@RequestBody BloodSampleDto dto){
+		sampleService.donateBlood(dto);
+	}
+
 	@RequestMapping(value = "/testBlood/{id}", method = RequestMethod.GET, produces = "application/json")
-	public ResponseEntity<?> getQuestions(@PathVariable int donorId) {
+	public ResponseEntity<?> getQuestions(@PathVariable("id") Integer donorId) {
 		BloodSampleDto dto = sampleService.checkBloodSample(donorId);
 		return new ResponseEntity<BloodSampleDto>(dto, HttpStatus.OK);
-
 	}
 	
 	@RequestMapping(value = "/questionaire", method = RequestMethod.POST, produces = "application/json")

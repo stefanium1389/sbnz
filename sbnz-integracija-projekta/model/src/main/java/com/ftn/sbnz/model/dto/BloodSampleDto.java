@@ -34,7 +34,7 @@ public class BloodSampleDto {
         this.id = id;
         this.donorId = donorId;
         this.bloodType = bloodType;
-        RhD = rhD;
+        this.RhD = rhD;
         this.rhPhenotype = rhPhenotype;
         this.hivPositive = hivPositive;
         this.hepatitisBPositive = hepatitisBPositive;
@@ -66,7 +66,7 @@ public class BloodSampleDto {
         return RhD;
     }
     public void setRhD(boolean rhD) {
-        RhD = rhD;
+        this.RhD = rhD;
     }
     public String getRhPhenotype() {
         return rhPhenotype;

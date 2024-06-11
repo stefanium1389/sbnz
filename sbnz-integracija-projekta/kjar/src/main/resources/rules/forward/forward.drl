@@ -232,7 +232,7 @@ rule "Syphillis Positive additional test"
         modify($dto){
             setSyphilisPositive($sample.isSyphilisPositive());
         }
-        System.out.println("Sample ID " + $sample.getId() + " is Hepatitis C " + $sample.isHepatitisCPositive() +" after additional testing");
+        System.out.println("Sample ID " + $sample.getId() + " is syphillis " + $sample.isHepatitisCPositive() +" after additional testing");
 
 end
 

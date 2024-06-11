@@ -2,13 +2,8 @@ package com.ftn.sbnz.model.models;
 
 import java.time.LocalDateTime;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-
-@Entity
 public class BloodDonor {
 
-    @Id
     private int id;
     private int numberOfDonations;
     private boolean canDonate;
