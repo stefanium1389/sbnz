@@ -5,11 +5,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ftn.sbnz.model.dto.BloodSampleDto;
+import com.ftn.sbnz.model.dto.DonorQuestionaireDto;
 import com.ftn.sbnz.model.models.BloodDonor;
 import com.ftn.sbnz.model.models.BloodSample;
 import com.ftn.sbnz.model.models.BloodType;
@@ -50,10 +52,29 @@ public class SampleAppController {
 			true,
 			null,
 			null);
-		BloodSampleDto dto = sampleService.checkBloodSample(sample, donor);
+		BloodSampleDto dto = sampleService.checkBloodSample(sample);
 		log.info("\nzavrsen forward-------------------------------------------------------------------------------------------\n");
 		return new ResponseEntity<BloodSampleDto>(dto, HttpStatus.OK);
 
 	}
 	
+	@RequestMapping(value = "/questionaire", method = RequestMethod.GET, produces = "application/json")
+	public ResponseEntity<?> processQuestionaire(@RequestBody DonorQuestionaireDto dto){
+		// DonorQuestionaireDto dto = new DonorQuestionaireDto(
+		// 	1,
+		// 	true,
+		// 	true,
+		// 	true,
+		// 	true,
+		// 	true,
+		// 	true,
+		// 	true,
+		// 	true,
+		// 	true,
+		// 	true, 
+		// 	true
+		// );
+		BloodDonor donor = sampleService.checkQuestionnaire(dto);
+		return new ResponseEntity<>(donor, HttpStatus.OK);
+	}
 }

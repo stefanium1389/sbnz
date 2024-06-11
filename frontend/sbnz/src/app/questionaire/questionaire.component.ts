@@ -6,6 +6,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./questionaire.component.css']
 })
 export class QuestionaireComponent {
+
+  constructor(){
+
+  }
+
   donorId: number =0;
   questions = [
     { question: 'Da li ste primili vakcinu u poslednjih 12 meseci?', key: 'isVaccinatedRecently', answer: '' },
