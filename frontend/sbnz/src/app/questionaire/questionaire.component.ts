@@ -1,4 +1,6 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-questionaire',
@@ -7,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class QuestionaireComponent {
 
-  constructor(){
+  constructor(private http: HttpClient, private router: Router){
 
   }
 
@@ -25,9 +27,21 @@ export class QuestionaireComponent {
     { question: 'Da li mislite da postojala mogucnost da se zarazite HIV-om?', key: 'hasHIV', answer: '' },
     { question: 'Da li ste ikada koristili bilo koju vrstu droge?', key: 'hasTakenDrugs', answer: '' }
   ];
-
   isFormValid = true;
   isSubmitted = false;
+  donor: Donor | undefined;
+
+  resetQuestionaire(){
+    window.location.reload();
+  }
+
+  testSample() {
+    this.http.get(`http://localhost:8080/testBlood/${this.donor!.id}`).subscribe({
+      next: (result)=> {
+
+      }
+    })
+  }
 
   submitAnswers() {
     this.isFormValid = this.questions.every(q => q.answer !== '');
@@ -48,6 +62,21 @@ export class QuestionaireComponent {
       };
       console.log(data);
       this.isSubmitted = true;
+      this.http.post<Donor>("http://localhost:8080/questionaire",data).subscribe({
+        next: (result) => {console.log(result)
+          if(result.canDonate == false){
+            const bannedUntilDate = new Date(result.bannedUntil[0],result.bannedUntil[1]-1,result.bannedUntil[2]);
+            const currentDate = new Date();
+            if(bannedUntilDate.getTime() - currentDate.getTime() < 100 * 365 * 24 * 60 * 60 * 1000){
+              result.bannedUntil = bannedUntilDate;
+            }
+            else{
+              result.bannedUntil = "Zauvek"
+            }
+          }
+          this.donor = result;
+        }
+      })
     }
   }
 }
@@ -65,4 +94,25 @@ export interface Questionnaire {
   hasHepatitis: boolean;
   hasHIV: boolean;
   hasTakenDrugs: boolean;
+}
+export interface Donor {
+  id:number,
+  numberOfDonations:number,
+  canDonate:boolean,
+  lastDonated:any,
+  bannedUntil:any}
+
+export interface BloodSampleDto {
+    id: number;
+    donorId: number;
+    bloodType: string;
+    RhD: boolean;
+    rhPhenotype: string;
+    hivPositive: boolean;
+    hepatitisBPositive: boolean;
+    hepatitisCPositive: boolean;
+    syphilisPositive: boolean;
+    useEritrocitesOnly: boolean;
+    canDonate: boolean;
+    bannedUntil: any; 
 }

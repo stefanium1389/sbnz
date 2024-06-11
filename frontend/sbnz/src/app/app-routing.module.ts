@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { QuestionaireComponent } from './questionaire/questionaire.component';
 
 const routes: Routes = [
-  {path: "donor", component: QuestionaireComponent},
+  {path: "", component: QuestionaireComponent},
 ];
 
 @NgModule({

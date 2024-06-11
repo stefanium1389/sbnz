@@ -1,5 +1,7 @@
 package com.ftn.sbnz.model.dto;
 
+import java.time.LocalDateTime;
+
 public class BloodSampleDto {
     private int id;
     private int donorId;
@@ -11,7 +13,21 @@ public class BloodSampleDto {
     private boolean hepatitisCPositive;
     private boolean syphilisPositive;
     private boolean useEritrocitesOnly;
+    private boolean canDonate;
+    private LocalDateTime bannedUntil;
     
+    public boolean isCanDonate() {
+        return canDonate;
+    }
+    public void setCanDonate(boolean canDonate) {
+        this.canDonate = canDonate;
+    }
+    public LocalDateTime getBannedUntil() {
+        return bannedUntil;
+    }
+    public void setBannedUntil(LocalDateTime bannedUntil) {
+        this.bannedUntil = bannedUntil;
+    }
     public BloodSampleDto(int id, int donorId, String bloodType, boolean rhD, String rhPhenotype, boolean hivPositive,
             boolean hepatitisBPositive, boolean hepatitisCPositive, boolean syphilisPositive,
             boolean useEritrocitesOnly) {
